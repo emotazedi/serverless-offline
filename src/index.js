@@ -211,6 +211,7 @@ module.exports = function(ServerlessPlugin, serverlessPath) {
             method,
             path,
             config: { cors: true },
+            payload: { maxBytes: 1048576 * 10 }, // Increasing maxBytes to 10Megs to support image uploads
             handler: (request, reply) => {
               console.log();
               serverlessLog(`${method} ${request.url.path} (λ: ${funName})`);
