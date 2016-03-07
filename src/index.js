@@ -157,8 +157,7 @@ module.exports = function(ServerlessPlugin, serverlessPath) {
         method: '*',
         path: '/',
         config: {
-          cors: true,
-          payload: { maxBytes: 1048576 * 10 }, // Increasing maxBytes to 10Megs to support image uploads
+          cors: true
         },
         handler: (request, reply) => {
           reply().redirect(this.options.prefix);
@@ -212,10 +211,7 @@ module.exports = function(ServerlessPlugin, serverlessPath) {
           this.server.route({
             method,
             path,
-            config: {
-              cors: true,
-              payload: { maxBytes: 1048576 * 10 }, // Increasing maxBytes to 10Megs to support image uploads
-            },
+            config: _specifyHandler(method),
             handler: (request, reply) => {
               console.log();
               serverlessLog(`${method} ${request.url.path} (λ: ${funName})`);
@@ -387,6 +383,17 @@ module.exports = function(ServerlessPlugin, serverlessPath) {
     _logAndExit() {
       console.log(Object.keys(arguments).map((key, i, array) => array[key]));
       process.exit(0);
+    }
+
+    _specifyHandler(requestType) {
+      if (requestType == 'POST' || requestType == 'PUT' || requestType == 'PATCH') {
+        return {
+          cors: true,
+          payload: { maxBytes: 1048576 * 10 }, // Increasing maxBytes to 10Megs to support image uploads
+        }
+      }
+
+      return { cors: true }
     }
   };
 };
