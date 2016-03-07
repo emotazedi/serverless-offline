@@ -211,7 +211,7 @@ module.exports = function(ServerlessPlugin, serverlessPath) {
           this.server.route({
             method,
             path,
-            config: _specifyHandler(method),
+            config: this._specifyHandler(method),
             handler: (request, reply) => {
               console.log();
               serverlessLog(`${method} ${request.url.path} (λ: ${funName})`);
