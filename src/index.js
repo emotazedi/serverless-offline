@@ -355,7 +355,7 @@ module.exports = function(ServerlessPlugin, serverlessPath) {
       this.server.start(err => {
         if (err) throw err;
         console.log();
-        serverlessLog(`Offline listening on http://localhost:${this.options.port}`);
+        serverlessLog(`Offline listening with increased maxBytes on http://localhost:${this.options.port}`);
       });
     }
 
